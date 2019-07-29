@@ -13,19 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.movies.data
 
-import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
+import com.fernandocejas.sample.core.extension.empty
 
-internal interface MoviesApi {
+data class MovieDetails(val id: Int,
+                        val title: String,
+                        val poster: String,
+                        val summary: String,
+                        val cast: String,
+                        val director: String,
+                        val year: Int,
+                        val trailer: String) {
+
     companion object {
-        private const val PARAM_MOVIE_ID = "movieId"
-        private const val MOVIES = "movies.json"
-        private const val MOVIE_DETAILS = "movie_0{$PARAM_MOVIE_ID}.json"
+        fun empty() = MovieDetails(0, String.empty(), String.empty(), String.empty(),
+                String.empty(), String.empty(), 0, String.empty())
     }
-
-    @GET(MOVIES) fun movies(): Call<List<MovieEntity>>
-    @GET(MOVIE_DETAILS) fun movieDetails(@Path(PARAM_MOVIE_ID) movieId: Int): Call<MovieDetailsEntity>
 }
+
+

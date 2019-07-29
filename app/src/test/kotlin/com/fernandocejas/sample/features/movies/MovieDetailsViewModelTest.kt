@@ -17,6 +17,10 @@ package com.fernandocejas.sample.features.movies
 
 import com.fernandocejas.sample.AndroidTest
 import com.fernandocejas.sample.core.functional.Either.Right
+import com.fernandocejas.sample.features.movies.data.MovieDetails
+import com.fernandocejas.sample.features.movies.usecase.GetMovieDetails
+import com.fernandocejas.sample.features.movies.usecase.PlayMovie
+import com.fernandocejas.sample.features.movies.viewmodel.MovieDetailsViewModel
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given

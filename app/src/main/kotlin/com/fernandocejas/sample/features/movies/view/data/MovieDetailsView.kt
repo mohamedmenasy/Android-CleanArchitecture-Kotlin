@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.login
+package com.fernandocejas.sample.features.movies.view.data
 
-import com.fernandocejas.sample.core.platform.BaseFragment
-import com.fernandocejas.sample.R
-
-class LoginFragment : BaseFragment() {
-    override fun layoutId() = R.layout.fragment_login
-}
+data class MovieDetailsView(val id: Int,
+                                  val title: String,
+                                  val poster: String,
+                                  val summary: String,
+                                  val cast: String,
+                                  val director: String,
+                                  val year: Int,
+                                  val trailer: String)

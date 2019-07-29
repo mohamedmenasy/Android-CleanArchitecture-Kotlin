@@ -13,26 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.movies.usecase
 
-import android.content.Context
-import com.fernandocejas.sample.features.movies.PlayMovie.Params
-import com.fernandocejas.sample.core.exception.Failure
-import com.fernandocejas.sample.core.functional.Either
-import com.fernandocejas.sample.core.functional.Either.Right
 import com.fernandocejas.sample.core.interactor.UseCase
 import com.fernandocejas.sample.core.interactor.UseCase.None
-import com.fernandocejas.sample.core.navigation.Navigator
+import com.fernandocejas.sample.features.movies.data.Movie
+import com.fernandocejas.sample.features.movies.exception.MoviesRepository
 import javax.inject.Inject
 
-class PlayMovie
-@Inject constructor(private val context: Context,
-                    private val navigator: Navigator) : UseCase<None, Params>() {
+class GetMovies
+@Inject constructor(private val moviesRepository: MoviesRepository) : UseCase<List<Movie>, None>() {
 
-    override suspend fun run(params: Params): Either<Failure, None> {
-        navigator.openVideo(context, params.url)
-        return Right(None())
-    }
-
-    data class Params(val url: String)
+    override suspend fun run(params: None) = moviesRepository.movies()
 }

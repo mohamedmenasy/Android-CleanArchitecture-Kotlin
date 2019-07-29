@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.login.view
 
-import com.fernandocejas.sample.core.exception.Failure.FeatureFailure
+import com.fernandocejas.sample.core.platform.BaseFragment
+import com.fernandocejas.sample.R
 
-class MovieFailure {
-    class ListNotAvailable: FeatureFailure()
-    class NonExistentMovie: FeatureFailure()
+class LoginFragment : BaseFragment() {
+    override fun layoutId() = R.layout.fragment_login
 }
-

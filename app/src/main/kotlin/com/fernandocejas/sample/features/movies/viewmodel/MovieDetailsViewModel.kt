@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.movies.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.fernandocejas.sample.features.movies.GetMovieDetails.Params
+import com.fernandocejas.sample.features.movies.usecase.GetMovieDetails.Params
 import com.fernandocejas.sample.core.platform.BaseViewModel
+import com.fernandocejas.sample.features.movies.usecase.GetMovieDetails
+import com.fernandocejas.sample.features.movies.data.MovieDetails
+import com.fernandocejas.sample.features.movies.view.data.MovieDetailsView
+import com.fernandocejas.sample.features.movies.usecase.PlayMovie
 import javax.inject.Inject
 
 class MovieDetailsViewModel

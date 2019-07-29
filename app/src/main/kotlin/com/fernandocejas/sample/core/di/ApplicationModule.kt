@@ -18,7 +18,7 @@ package com.fernandocejas.sample.core.di
 import android.content.Context
 import com.fernandocejas.sample.AndroidApplication
 import com.fernandocejas.sample.BuildConfig
-import com.fernandocejas.sample.features.movies.MoviesRepository
+import com.fernandocejas.sample.features.movies.exception.MoviesRepository
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

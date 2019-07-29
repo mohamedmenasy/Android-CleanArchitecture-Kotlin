@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.movies.exception
 
 import com.fernandocejas.sample.core.exception.Failure
 import com.fernandocejas.sample.core.exception.Failure.NetworkConnection
@@ -22,6 +22,10 @@ import com.fernandocejas.sample.core.functional.Either
 import com.fernandocejas.sample.core.functional.Either.Left
 import com.fernandocejas.sample.core.functional.Either.Right
 import com.fernandocejas.sample.core.platform.NetworkHandler
+import com.fernandocejas.sample.features.movies.data.Movie
+import com.fernandocejas.sample.features.movies.data.MovieDetails
+import com.fernandocejas.sample.features.movies.data.remote.response.MovieDetailsEntity
+import com.fernandocejas.sample.features.movies.data.remote.MoviesService
 import retrofit2.Call
 import javax.inject.Inject
 

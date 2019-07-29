@@ -17,8 +17,8 @@ package com.fernandocejas.sample.core.navigation
 
 import com.fernandocejas.sample.AndroidTest
 import com.fernandocejas.sample.features.login.Authenticator
-import com.fernandocejas.sample.features.login.LoginActivity
-import com.fernandocejas.sample.features.movies.MoviesActivity
+import com.fernandocejas.sample.features.login.view.LoginActivity
+import com.fernandocejas.sample.features.movies.view.MoviesActivity
 import com.fernandocejas.sample.shouldNavigateTo
 import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Before

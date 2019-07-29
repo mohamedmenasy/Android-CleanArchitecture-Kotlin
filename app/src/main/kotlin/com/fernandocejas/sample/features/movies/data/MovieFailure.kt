@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.movies.data
 
-data class MovieDetailsView(val id: Int,
-                                  val title: String,
-                                  val poster: String,
-                                  val summary: String,
-                                  val cast: String,
-                                  val director: String,
-                                  val year: Int,
-                                  val trailer: String)
+import com.fernandocejas.sample.core.exception.Failure.FeatureFailure
+
+class MovieFailure {
+    class ListNotAvailable: FeatureFailure()
+    class NonExistentMovie: FeatureFailure()
+}
+

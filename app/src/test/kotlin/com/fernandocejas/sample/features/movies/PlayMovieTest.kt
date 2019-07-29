@@ -17,6 +17,7 @@ package com.fernandocejas.sample.features.movies
 
 import com.fernandocejas.sample.AndroidTest
 import com.fernandocejas.sample.core.navigation.Navigator
+import com.fernandocejas.sample.features.movies.usecase.PlayMovie
 import com.nhaarman.mockito_kotlin.verify
 import org.junit.Before
 import org.junit.Test

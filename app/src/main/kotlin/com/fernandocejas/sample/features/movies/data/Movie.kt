@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.movies.data
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import com.fernandocejas.sample.core.extension.empty
 
-@Parcelize
-data class MovieView(val id: Int, val poster: String) : Parcelable
+data class Movie(val id: Int, val poster: String) {
+
+    companion object {
+        fun empty() = Movie(0, String.empty())
+    }
+}

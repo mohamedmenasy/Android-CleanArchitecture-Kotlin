@@ -13,16 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.login
+package com.fernandocejas.sample.features.movies.view
 
 import android.content.Context
 import android.content.Intent
 import com.fernandocejas.sample.core.platform.BaseActivity
+import com.fernandocejas.sample.features.movies.view.data.MovieView
 
-class LoginActivity : BaseActivity() {
+class MovieDetailsActivity : BaseActivity() {
+
     companion object {
-        fun callingIntent(context: Context) = Intent(context, LoginActivity::class.java)
+        private const val INTENT_EXTRA_PARAM_MOVIE = "com.fernandocejas.INTENT_PARAM_MOVIE"
+
+        fun callingIntent(context: Context, movie: MovieView): Intent {
+            val intent = Intent(context, MovieDetailsActivity::class.java)
+            intent.putExtra(INTENT_EXTRA_PARAM_MOVIE, movie)
+            return intent
+        }
     }
 
-    override fun fragment() = LoginFragment()
+    override fun fragment() = MovieDetailsFragment.forMovie(intent.getParcelableExtra(INTENT_EXTRA_PARAM_MOVIE))
 }

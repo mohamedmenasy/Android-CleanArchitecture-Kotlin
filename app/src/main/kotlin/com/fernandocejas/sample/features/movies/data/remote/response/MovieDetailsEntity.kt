@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.features.movies
+package com.fernandocejas.sample.features.movies.data.remote.response
 
 import com.fernandocejas.sample.core.extension.empty
+import com.fernandocejas.sample.features.movies.data.MovieDetails
 
 data class MovieDetailsEntity(private val id: Int,
                               private val title: String,
