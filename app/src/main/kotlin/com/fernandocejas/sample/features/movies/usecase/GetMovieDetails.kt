@@ -15,10 +15,10 @@
  */
 package com.fernandocejas.sample.features.movies.usecase
 
-import com.fernandocejas.sample.features.movies.usecase.GetMovieDetails.Params
 import com.fernandocejas.sample.core.interactor.UseCase
 import com.fernandocejas.sample.features.movies.data.MovieDetails
-import com.fernandocejas.sample.features.movies.exception.MoviesRepository
+import com.fernandocejas.sample.features.movies.data.remote.MoviesRepository
+import com.fernandocejas.sample.features.movies.usecase.GetMovieDetails.Params
 import javax.inject.Inject
 
 class GetMovieDetails

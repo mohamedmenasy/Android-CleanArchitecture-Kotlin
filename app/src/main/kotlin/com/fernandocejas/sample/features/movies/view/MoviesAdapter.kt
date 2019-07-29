@@ -29,8 +29,8 @@ import kotlin.properties.Delegates
 class MoviesAdapter
 @Inject constructor() : androidx.recyclerview.widget.RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
-    internal var collection: List<MovieView> by Delegates.observable(emptyList()) {
-        _, _, _ -> notifyDataSetChanged()
+    internal var collection: List<MovieView> by Delegates.observable(emptyList()) { _, _, _ ->
+        notifyDataSetChanged()
     }
 
     internal var clickListener: (MovieView, Navigator.Extras) -> Unit = { _, _ -> }

@@ -16,7 +16,7 @@
 package com.fernandocejas.sample.features.movies
 
 import com.fernandocejas.sample.UnitTest
-import com.fernandocejas.sample.features.movies.exception.MoviesRepository.Network
+import com.fernandocejas.sample.features.movies.data.remote.MoviesRepository.Network
 import com.fernandocejas.sample.core.exception.Failure.NetworkConnection
 import com.fernandocejas.sample.core.exception.Failure.ServerError
 import com.fernandocejas.sample.core.extension.empty
@@ -28,7 +28,7 @@ import com.fernandocejas.sample.features.movies.data.remote.response.MovieEntity
 import com.fernandocejas.sample.features.movies.data.Movie
 import com.fernandocejas.sample.features.movies.data.MovieDetails
 import com.fernandocejas.sample.features.movies.data.remote.MoviesService
-import com.fernandocejas.sample.features.movies.exception.MoviesRepository
+import com.fernandocejas.sample.features.movies.data.remote.MoviesRepository
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyZeroInteractions

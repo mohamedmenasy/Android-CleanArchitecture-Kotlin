@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fernandocejas.sample.core.di.viewmodel
+package com.fernandocejas.sample.features.movies.exception
 
-import androidx.lifecycle.ViewModel
-import dagger.MapKey
-import kotlin.reflect.KClass
+import com.fernandocejas.sample.core.exception.Failure.FeatureFailure
 
-@MapKey
-@Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
-internal annotation class ViewModelKey(val value: KClass<out ViewModel>)
+class MovieFailure {
+    class ListNotAvailable : FeatureFailure()
+    class NonExistentMovie : FeatureFailure()
+}
+

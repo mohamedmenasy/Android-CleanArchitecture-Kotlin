@@ -15,18 +15,15 @@
  */
 package com.fernandocejas.sample.features.movies.view
 
-import androidx.fragment.app.FragmentActivity
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import android.transition.Fade
 import android.transition.TransitionManager
 import android.view.View
 import android.view.ViewGroup
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.fernandocejas.sample.core.extension.cancelTransition
-import javax.inject.Inject
 
 
-class MovieDetailsAnimator
-@Inject constructor() {
+class MovieDetailsAnimator {
 
     private val TRANSITION_DELAY = 200L
     private val TRANSITION_DURATION = 400L

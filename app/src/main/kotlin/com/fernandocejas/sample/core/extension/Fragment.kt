@@ -15,17 +15,14 @@
  */
 package com.fernandocejas.sample.core.extension
 
+import android.content.Context
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.Factory
 import androidx.lifecycle.ViewModelProviders
-import android.content.Context
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import android.view.View
 import com.fernandocejas.sample.core.platform.BaseActivity
 import com.fernandocejas.sample.core.platform.BaseFragment
-import kotlinx.android.synthetic.main.activity_layout.fragmentContainer
+import kotlinx.android.synthetic.main.activity_layout.*
 
 inline fun androidx.fragment.app.FragmentManager.inTransaction(func: androidx.fragment.app.FragmentTransaction.() -> androidx.fragment.app.FragmentTransaction) =
         beginTransaction().func().commit()

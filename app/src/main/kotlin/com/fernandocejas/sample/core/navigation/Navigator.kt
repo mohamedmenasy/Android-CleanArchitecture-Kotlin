@@ -19,22 +19,18 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.core.app.ActivityOptionsCompat
 import android.view.View
 import android.widget.ImageView
+import androidx.core.app.ActivityOptionsCompat
+import com.fernandocejas.sample.core.extension.empty
 import com.fernandocejas.sample.features.login.Authenticator
 import com.fernandocejas.sample.features.login.view.LoginActivity
 import com.fernandocejas.sample.features.movies.view.MovieDetailsActivity
-import com.fernandocejas.sample.features.movies.view.data.MovieView
 import com.fernandocejas.sample.features.movies.view.MoviesActivity
-import com.fernandocejas.sample.core.extension.empty
-import javax.inject.Inject
-import javax.inject.Singleton
+import com.fernandocejas.sample.features.movies.view.data.MovieView
 
 
-@Singleton
-class Navigator
-@Inject constructor(private val authenticator: Authenticator) {
+class Navigator(private val authenticator: Authenticator) {
 
     private fun showLogin(context: Context) = context.startActivity(LoginActivity.callingIntent(context))
 

@@ -18,13 +18,11 @@ package com.fernandocejas.sample.features.movies.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.fernandocejas.sample.core.interactor.UseCase.None
 import com.fernandocejas.sample.core.platform.BaseViewModel
-import com.fernandocejas.sample.features.movies.usecase.GetMovies
 import com.fernandocejas.sample.features.movies.data.Movie
+import com.fernandocejas.sample.features.movies.usecase.GetMovies
 import com.fernandocejas.sample.features.movies.view.data.MovieView
-import javax.inject.Inject
 
-class MoviesViewModel
-@Inject constructor(private val getMovies: GetMovies) : BaseViewModel() {
+class MoviesViewModel(private val getMovies: GetMovies) : BaseViewModel() {
 
     var movies: MutableLiveData<List<MovieView>> = MutableLiveData()
 

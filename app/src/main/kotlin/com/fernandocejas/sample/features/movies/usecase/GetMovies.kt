@@ -18,7 +18,7 @@ package com.fernandocejas.sample.features.movies.usecase
 import com.fernandocejas.sample.core.interactor.UseCase
 import com.fernandocejas.sample.core.interactor.UseCase.None
 import com.fernandocejas.sample.features.movies.data.Movie
-import com.fernandocejas.sample.features.movies.exception.MoviesRepository
+import com.fernandocejas.sample.features.movies.data.remote.MoviesRepository
 import javax.inject.Inject
 
 class GetMovies

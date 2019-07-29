@@ -13,7 +13,7 @@ ext {
 
     //Third party libraries
     kotlin_coroutines_version = '1.0.1'
-    dagger_version = '2.11'
+    koin_verion = '2.0.1'
     javaxAnnotations_version = '1.0'
     javaxInject_version = '1'
     retrofit_version = '2.5.0'
@@ -46,8 +46,8 @@ ext {
             archComponents          : "androidx.lifecycle:lifecycle-extensions:$lifecycle_version",
             archComponentsCompiler  : "androidx.lifecycle:lifecycle-compiler:$lifecycle_version",
             glide                   : "com.github.bumptech.glide:glide:$glide_version",
-            daggerCompiler          : "com.google.dagger:dagger-compiler:$dagger_version",
-            dagger                  : "com.google.dagger:dagger:$dagger_version",
+            koin                    : "org.koin:koin-android:$koin_verion",
+            koinViewModel           : "org.koin:koin-androidx-viewmodel:$koin_verion",
             javaxAnnotation         : "javax.annotation:jsr250-api:$javaxAnnotations_version",
             javaxInject             : "javax.inject:javax.inject:$javaxInject_version",
             retrofit                : "com.squareup.retrofit2:converter-gson:$retrofit_version",

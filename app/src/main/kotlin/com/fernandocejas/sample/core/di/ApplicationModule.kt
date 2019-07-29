@@ -15,39 +15,62 @@
  */
 package com.fernandocejas.sample.core.di
 
-import android.content.Context
-import com.fernandocejas.sample.AndroidApplication
 import com.fernandocejas.sample.BuildConfig
-import com.fernandocejas.sample.features.movies.exception.MoviesRepository
-import dagger.Module
-import dagger.Provides
+import com.fernandocejas.sample.core.navigation.Navigator
+import com.fernandocejas.sample.core.platform.NetworkHandler
+import com.fernandocejas.sample.features.login.Authenticator
+import com.fernandocejas.sample.features.movies.data.remote.MoviesRepository
+import com.fernandocejas.sample.features.movies.data.remote.MoviesService
+import com.fernandocejas.sample.features.movies.usecase.GetMovieDetails
+import com.fernandocejas.sample.features.movies.usecase.GetMovies
+import com.fernandocejas.sample.features.movies.usecase.PlayMovie
+import com.fernandocejas.sample.features.movies.view.MovieDetailsAnimator
+import com.fernandocejas.sample.features.movies.view.MoviesAdapter
+import com.fernandocejas.sample.features.movies.viewmodel.MovieDetailsViewModel
+import com.fernandocejas.sample.features.movies.viewmodel.MoviesViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
-@Module
-class ApplicationModule(private val application: AndroidApplication) {
 
-    @Provides @Singleton fun provideApplicationContext(): Context = application
+val applicationModule = module {
 
-    @Provides @Singleton fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
+
+    single {
+        Retrofit.Builder()
                 .baseUrl("https://raw.githubusercontent.com/android10/Sample-Data/master/Android-CleanArchitecture-Kotlin/")
-                .client(createClient())
-                .addConverterFactory(GsonConverterFactory.create())
+                .client(get()).addConverterFactory(GsonConverterFactory.create())
                 .build()
     }
 
-    private fun createClient(): OkHttpClient {
+    single {
+
         val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {
             val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
             okHttpClientBuilder.addInterceptor(loggingInterceptor)
         }
-        return okHttpClientBuilder.build()
+        okHttpClientBuilder.build() as OkHttpClient
     }
 
-    @Provides @Singleton fun provideMoviesRepository(dataSource: MoviesRepository.Network): MoviesRepository = dataSource
+    factory { NetworkHandler(get()) }
+    factory { MoviesService(get()) }
+    single { Navigator(get()) }
+}
+
+val loginModule = module {
+    single { Authenticator() }
+}
+val moviesModule = module {
+    single { MoviesRepository.Network(get(), get()) as MoviesRepository }
+    single { GetMovieDetails(get()) }
+    single { GetMovies(get()) }
+    single { PlayMovie(get(), get()) }
+    single { MoviesAdapter() }
+    factory { MovieDetailsAnimator() }
+    viewModel { MovieDetailsViewModel(get(), get()) }
+    viewModel { MoviesViewModel(get()) }
 }

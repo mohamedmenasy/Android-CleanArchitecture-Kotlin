@@ -16,13 +16,13 @@
 package com.fernandocejas.sample.features.movies.usecase
 
 import android.content.Context
-import com.fernandocejas.sample.features.movies.usecase.PlayMovie.Params
 import com.fernandocejas.sample.core.exception.Failure
 import com.fernandocejas.sample.core.functional.Either
 import com.fernandocejas.sample.core.functional.Either.Right
 import com.fernandocejas.sample.core.interactor.UseCase
 import com.fernandocejas.sample.core.interactor.UseCase.None
 import com.fernandocejas.sample.core.navigation.Navigator
+import com.fernandocejas.sample.features.movies.usecase.PlayMovie.Params
 import javax.inject.Inject
 
 class PlayMovie
