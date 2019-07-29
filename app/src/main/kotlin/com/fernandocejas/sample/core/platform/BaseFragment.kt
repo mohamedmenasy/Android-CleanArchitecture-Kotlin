@@ -15,12 +15,12 @@
  */
 package com.fernandocejas.sample.core.platform
 
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +37,7 @@ import javax.inject.Inject
  *
  * @see Fragment
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : androidx.fragment.app.Fragment() {
 
     abstract fun layoutId(): Int
 

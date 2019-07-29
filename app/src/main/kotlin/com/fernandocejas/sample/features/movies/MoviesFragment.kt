@@ -16,8 +16,8 @@
 package com.fernandocejas.sample.features.movies
 
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.fernandocejas.sample.core.platform.BaseFragment
 import com.fernandocejas.sample.R
@@ -62,7 +62,7 @@ class MoviesFragment : BaseFragment() {
 
 
     private fun initializeView() {
-        movieList.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        movieList.layoutManager = androidx.recyclerview.widget.StaggeredGridLayoutManager(3, androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL)
         movieList.adapter = moviesAdapter
         moviesAdapter.clickListener = { movie, navigationExtras ->
                     navigator.showMovieDetails(activity!!, movie, navigationExtras) }

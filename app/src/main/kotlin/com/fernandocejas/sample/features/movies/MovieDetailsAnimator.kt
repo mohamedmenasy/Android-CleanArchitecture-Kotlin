@@ -15,8 +15,8 @@
  */
 package com.fernandocejas.sample.features.movies
 
-import android.support.v4.app.FragmentActivity
-import android.support.v4.view.animation.FastOutSlowInInterpolator
+import androidx.fragment.app.FragmentActivity
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import android.transition.Fade
 import android.transition.TransitionManager
 import android.view.View
@@ -37,7 +37,7 @@ class MovieDetailsAnimator
     private val SCALE_DOWN_VALUE = 0.0F
     private val SCALE_DOWN_DURATION = 200L
 
-    internal fun postponeEnterTransition(activity: FragmentActivity) = activity.postponeEnterTransition()
+    internal fun postponeEnterTransition(activity: androidx.fragment.app.FragmentActivity) = activity.postponeEnterTransition()
     internal fun cancelTransition(view: View) = view.cancelTransition()
 
     internal fun scaleUpView(view: View) = scaleView(view, SCALE_UP_VALUE, SCALE_UP_VALUE, SCALE_UP_DURATION)

@@ -18,7 +18,7 @@
 
 package com.fernandocejas.sample
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import org.amshove.kluent.shouldEqual
 import org.robolectric.Robolectric
 import org.robolectric.Shadows

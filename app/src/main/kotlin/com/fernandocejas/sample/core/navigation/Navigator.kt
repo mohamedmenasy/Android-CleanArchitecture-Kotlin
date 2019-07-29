@@ -19,8 +19,8 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.app.FragmentActivity
+import androidx.core.app.ActivityOptionsCompat
+import androidx.fragment.app.FragmentActivity
 import android.view.View
 import android.widget.ImageView
 import com.fernandocejas.sample.features.login.Authenticator
@@ -48,7 +48,7 @@ class Navigator
 
     private fun showMovies(context: Context) = context.startActivity(MoviesActivity.callingIntent(context))
 
-    fun showMovieDetails(activity: FragmentActivity, movie: MovieView, navigationExtras: Extras) {
+    fun showMovieDetails(activity: androidx.fragment.app.FragmentActivity, movie: MovieView, navigationExtras: Extras) {
         val intent = MovieDetailsActivity.callingIntent(activity, movie)
         val sharedView = navigationExtras.transitionSharedElement as ImageView
         val activityOptions = ActivityOptionsCompat

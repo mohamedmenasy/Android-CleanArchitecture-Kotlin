@@ -15,22 +15,22 @@
  */
 package com.fernandocejas.sample.core.extension
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider.Factory
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider.Factory
+import androidx.lifecycle.ViewModelProviders
 import android.content.Context
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import android.view.View
 import com.fernandocejas.sample.core.platform.BaseActivity
 import com.fernandocejas.sample.core.platform.BaseFragment
 import kotlinx.android.synthetic.main.activity_layout.fragmentContainer
 
-inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) =
+inline fun androidx.fragment.app.FragmentManager.inTransaction(func: androidx.fragment.app.FragmentTransaction.() -> androidx.fragment.app.FragmentTransaction) =
         beginTransaction().func().commit()
 
-inline fun <reified T : ViewModel> Fragment.viewModel(factory: Factory, body: T.() -> Unit): T {
+inline fun <reified T : ViewModel> androidx.fragment.app.Fragment.viewModel(factory: Factory, body: T.() -> Unit): T {
     val vm = ViewModelProviders.of(this, factory)[T::class.java]
     vm.body()
     return vm

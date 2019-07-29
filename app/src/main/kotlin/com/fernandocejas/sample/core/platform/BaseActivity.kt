@@ -16,7 +16,7 @@
 package com.fernandocejas.sample.core.platform
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.fernandocejas.sample.R.id
 import com.fernandocejas.sample.R.layout
 import com.fernandocejas.sample.core.extension.inTransaction

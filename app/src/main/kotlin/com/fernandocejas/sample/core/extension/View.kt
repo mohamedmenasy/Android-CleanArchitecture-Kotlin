@@ -16,8 +16,8 @@
 package com.fernandocejas.sample.core.extension
 
 import android.graphics.drawable.Drawable
-import android.support.annotation.LayoutRes
-import android.support.v4.app.FragmentActivity
+import androidx.annotation.LayoutRes
+import androidx.fragment.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,12 +52,12 @@ fun ImageView.loadFromUrl(url: String) =
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(this)!!
 
-fun ImageView.loadUrlAndPostponeEnterTransition(url: String, activity: FragmentActivity) {
+fun ImageView.loadUrlAndPostponeEnterTransition(url: String, activity: androidx.fragment.app.FragmentActivity) {
     val target: Target<Drawable> = ImageViewBaseTarget(this, activity)
     Glide.with(context.applicationContext).load(url).into(target)
 }
 
-private class ImageViewBaseTarget(var imageView: ImageView?, var activity: FragmentActivity?) : BaseTarget<Drawable>() {
+private class ImageViewBaseTarget(var imageView: ImageView?, var activity: androidx.fragment.app.FragmentActivity?) : BaseTarget<Drawable>() {
     override fun removeCallback(cb: SizeReadyCallback) {
         imageView = null
         activity = null

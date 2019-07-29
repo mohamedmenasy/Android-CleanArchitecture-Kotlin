@@ -15,7 +15,7 @@
  */
 package com.fernandocejas.sample.features.movies
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.fernandocejas.sample.R
@@ -27,7 +27,7 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 
 class MoviesAdapter
-@Inject constructor() : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+@Inject constructor() : androidx.recyclerview.widget.RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     internal var collection: List<MovieView> by Delegates.observable(emptyList()) {
         _, _, _ -> notifyDataSetChanged()
@@ -43,7 +43,7 @@ class MoviesAdapter
 
     override fun getItemCount() = collection.size
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         fun bind(movieView: MovieView, clickListener: (MovieView, Navigator.Extras) -> Unit) {
             itemView.moviePoster.loadFromUrl(movieView.poster)
             itemView.setOnClickListener { clickListener(movieView, Navigator.Extras(itemView.moviePoster)) }
