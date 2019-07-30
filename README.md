@@ -51,7 +51,7 @@ Article, lessons learned and some more material coming up. Check the following k
 
 - Modularize the feature code into packages.
 - Using [KOIN](https://insert-koin.io/) 2.0.1 instead of Dagger.
-- Migrate to Androidx.
+- Migrate to AndroidX.
 - Using stable Coroutines version 1.0.1
 - Using [Kotlin Parcelize](https://kotlinlang.org/docs/tutorials/android-plugin.html).
 - Update dependencies.
