@@ -22,31 +22,44 @@ import com.fernandocejas.sample.core.extension.inflate
 import com.fernandocejas.sample.core.extension.loadFromUrl
 import com.fernandocejas.sample.core.navigation.Navigator
 import com.fernandocejas.sample.features.movies.view.data.MovieView
-import kotlinx.android.synthetic.main.row_movie.view.*
+import kotlinx.android.synthetic.main.row_movie.view.moviePoster
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 class MoviesAdapter
-@Inject constructor() : androidx.recyclerview.widget.RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+@Inject constructor() :
+    androidx.recyclerview.widget.RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
-    internal var collection: List<MovieView> by Delegates.observable(emptyList()) { _, _, _ ->
-        notifyDataSetChanged()
+  internal var collection: List<MovieView> by Delegates.observable(emptyList()) { _, _, _ ->
+    notifyDataSetChanged()
+  }
+
+  internal var clickListener: (MovieView, Navigator.Extras) -> Unit = { _, _ -> }
+
+  override fun onCreateViewHolder(
+    parent: ViewGroup,
+    viewType: Int
+  ) =
+    ViewHolder(parent.inflate(R.layout.row_movie))
+
+  override fun onBindViewHolder(
+    viewHolder: ViewHolder,
+    position: Int
+  ) =
+    viewHolder.bind(collection[position], clickListener)
+
+  override fun getItemCount() = collection.size
+
+  class ViewHolder(itemView: View) :
+      androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+    fun bind(
+      movieView: MovieView,
+      clickListener: (MovieView, Navigator.Extras) -> Unit
+    ) {
+      itemView.moviePoster.loadFromUrl(movieView.poster)
+      itemView.setOnClickListener {
+        clickListener(movieView, Navigator.Extras(itemView.moviePoster))
+      }
     }
-
-    internal var clickListener: (MovieView, Navigator.Extras) -> Unit = { _, _ -> }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            ViewHolder(parent.inflate(R.layout.row_movie))
-
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) =
-            viewHolder.bind(collection[position], clickListener)
-
-    override fun getItemCount() = collection.size
-
-    class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
-        fun bind(movieView: MovieView, clickListener: (MovieView, Navigator.Extras) -> Unit) {
-            itemView.moviePoster.loadFromUrl(movieView.poster)
-            itemView.setOnClickListener { clickListener(movieView, Navigator.Extras(itemView.moviePoster)) }
-        }
-    }
+  }
 }

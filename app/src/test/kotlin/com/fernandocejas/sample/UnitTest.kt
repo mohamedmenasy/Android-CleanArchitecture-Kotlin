@@ -28,6 +28,6 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 abstract class UnitTest {
 
-    @Suppress("LeakingThis")
-    @Rule @JvmField val injectMocks = InjectMocksRule.create(this@UnitTest)
+  @Suppress("LeakingThis")
+  @Rule @JvmField val injectMocks = InjectMocksRule.create(this@UnitTest)
 }

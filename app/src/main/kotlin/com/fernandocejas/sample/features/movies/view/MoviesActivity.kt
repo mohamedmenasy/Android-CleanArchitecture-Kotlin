@@ -21,9 +21,9 @@ import com.fernandocejas.sample.core.platform.BaseActivity
 
 class MoviesActivity : BaseActivity() {
 
-    companion object {
-        fun callingIntent(context: Context) = Intent(context, MoviesActivity::class.java)
-    }
+  companion object {
+    fun callingIntent(context: Context) = Intent(context, MoviesActivity::class.java)
+  }
 
-    override fun fragment() = MoviesFragment()
+  override fun fragment() = MoviesFragment()
 }

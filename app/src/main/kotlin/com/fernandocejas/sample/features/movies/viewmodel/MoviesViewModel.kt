@@ -24,11 +24,11 @@ import com.fernandocejas.sample.features.movies.view.data.MovieView
 
 class MoviesViewModel(private val getMovies: GetMovies) : BaseViewModel() {
 
-    var movies: MutableLiveData<List<MovieView>> = MutableLiveData()
+  var movies: MutableLiveData<List<MovieView>> = MutableLiveData()
 
-    fun loadMovies() = getMovies(None()) { it.either(::handleFailure, ::handleMovieList) }
+  fun loadMovies() = getMovies(None()) { it.either(::handleFailure, ::handleMovieList) }
 
-    private fun handleMovieList(movies: List<Movie>) {
-        this.movies.value = movies.map { MovieView(it.id, it.poster) }
-    }
+  private fun handleMovieList(movies: List<Movie>) {
+    this.movies.value = movies.map { MovieView(it.id, it.poster) }
+  }
 }

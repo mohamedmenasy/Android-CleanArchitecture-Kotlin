@@ -35,42 +35,45 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 val applicationModule = module {
 
+  single {
+    Retrofit.Builder()
+        .baseUrl(
+            "https://raw.githubusercontent.com/android10/Sample-Data/master/Android-CleanArchitecture-Kotlin/"
+        )
+        .client(get())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+  }
 
-    single {
-        Retrofit.Builder()
-                .baseUrl("https://raw.githubusercontent.com/android10/Sample-Data/master/Android-CleanArchitecture-Kotlin/")
-                .client(get()).addConverterFactory(GsonConverterFactory.create())
-                .build()
+  single {
+
+    val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
+    if (BuildConfig.DEBUG) {
+      val loggingInterceptor = HttpLoggingInterceptor().setLevel(
+          HttpLoggingInterceptor.Level.BASIC
+      )
+      okHttpClientBuilder.addInterceptor(loggingInterceptor)
     }
+    okHttpClientBuilder.build() as OkHttpClient
+  }
 
-    single {
-
-        val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
-        if (BuildConfig.DEBUG) {
-            val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
-            okHttpClientBuilder.addInterceptor(loggingInterceptor)
-        }
-        okHttpClientBuilder.build() as OkHttpClient
-    }
-
-    factory { NetworkHandler(get()) }
-    factory { MoviesService(get()) }
-    single { Navigator(get()) }
+  factory { NetworkHandler(get()) }
+  factory { MoviesService(get()) }
+  single { Navigator(get()) }
 }
 
 val loginModule = module {
-    single { Authenticator() }
+  single { Authenticator() }
 }
 val moviesModule = module {
-    single { MoviesRepository.Network(get(), get()) as MoviesRepository }
-    single { GetMovieDetails(get()) }
-    single { GetMovies(get()) }
-    single { PlayMovie(get(), get()) }
-    single { MoviesAdapter() }
-    factory { MovieDetailsAnimator() }
-    viewModel { MovieDetailsViewModel(get(), get()) }
-    viewModel { MoviesViewModel(get()) }
+  single { MoviesRepository.Network(get(), get()) as MoviesRepository }
+  single { GetMovieDetails(get()) }
+  single { GetMovies(get()) }
+  single { PlayMovie(get(), get()) }
+  single { MoviesAdapter() }
+  factory { MovieDetailsAnimator() }
+  viewModel { MovieDetailsViewModel(get(), get()) }
+  viewModel { MoviesViewModel(get()) }
 }

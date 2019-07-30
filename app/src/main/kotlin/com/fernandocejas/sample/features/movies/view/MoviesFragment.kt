@@ -31,66 +31,72 @@ import com.fernandocejas.sample.core.platform.BaseFragment
 import com.fernandocejas.sample.features.movies.exception.MovieFailure.ListNotAvailable
 import com.fernandocejas.sample.features.movies.view.data.MovieView
 import com.fernandocejas.sample.features.movies.viewmodel.MoviesViewModel
-import kotlinx.android.synthetic.main.fragment_movies.*
+import kotlinx.android.synthetic.main.fragment_movies.emptyView
+import kotlinx.android.synthetic.main.fragment_movies.movieList
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MoviesFragment : BaseFragment() {
 
-    private val navigator: Navigator by inject()
-    private val moviesAdapter: MoviesAdapter by inject()
-    private val moviesViewModel: MoviesViewModel by viewModel()
+  private val navigator: Navigator by inject()
+  private val moviesAdapter: MoviesAdapter by inject()
+  private val moviesViewModel: MoviesViewModel by viewModel()
 
-    override fun layoutId() = R.layout.fragment_movies
+  override fun layoutId() = R.layout.fragment_movies
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        with(moviesViewModel) {
-            observe(movies, ::renderMoviesList)
-            failure(failure, ::handleFailure)
-        }
+    with(moviesViewModel) {
+      observe(movies, ::renderMoviesList)
+      failure(failure, ::handleFailure)
     }
+  }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initializeView()
-        loadMoviesList()
+  override fun onViewCreated(
+    view: View,
+    savedInstanceState: Bundle?
+  ) {
+    super.onViewCreated(view, savedInstanceState)
+    initializeView()
+    loadMoviesList()
+  }
+
+  private fun initializeView() {
+    movieList.layoutManager = androidx.recyclerview.widget.StaggeredGridLayoutManager(
+        3,
+        androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
+    )
+    movieList.adapter = moviesAdapter
+    moviesAdapter.clickListener = { movie, navigationExtras ->
+      navigator.showMovieDetails(activity!!, movie, navigationExtras)
     }
+  }
 
+  private fun loadMoviesList() {
+    emptyView.invisible()
+    movieList.visible()
+    showProgress()
+    moviesViewModel.loadMovies()
+  }
 
-    private fun initializeView() {
-        movieList.layoutManager = androidx.recyclerview.widget.StaggeredGridLayoutManager(3, androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL)
-        movieList.adapter = moviesAdapter
-        moviesAdapter.clickListener = { movie, navigationExtras ->
-            navigator.showMovieDetails(activity!!, movie, navigationExtras)
-        }
+  private fun renderMoviesList(movies: List<MovieView>?) {
+    moviesAdapter.collection = movies.orEmpty()
+    hideProgress()
+  }
+
+  private fun handleFailure(failure: Failure?) {
+    when (failure) {
+      is NetworkConnection -> renderFailure(R.string.failure_network_connection)
+      is ServerError -> renderFailure(R.string.failure_server_error)
+      is ListNotAvailable -> renderFailure(R.string.failure_movies_list_unavailable)
     }
+  }
 
-    private fun loadMoviesList() {
-        emptyView.invisible()
-        movieList.visible()
-        showProgress()
-        moviesViewModel.loadMovies()
-    }
-
-    private fun renderMoviesList(movies: List<MovieView>?) {
-        moviesAdapter.collection = movies.orEmpty()
-        hideProgress()
-    }
-
-    private fun handleFailure(failure: Failure?) {
-        when (failure) {
-            is NetworkConnection -> renderFailure(R.string.failure_network_connection)
-            is ServerError -> renderFailure(R.string.failure_server_error)
-            is ListNotAvailable -> renderFailure(R.string.failure_movies_list_unavailable)
-        }
-    }
-
-    private fun renderFailure(@StringRes message: Int) {
-        movieList.invisible()
-        emptyView.visible()
-        hideProgress()
-        notifyWithAction(message, R.string.action_refresh, ::loadMoviesList)
-    }
+  private fun renderFailure(@StringRes message: Int) {
+    movieList.invisible()
+    emptyView.visible()
+    hideProgress()
+    notifyWithAction(message, R.string.action_refresh, ::loadMoviesList)
+  }
 }

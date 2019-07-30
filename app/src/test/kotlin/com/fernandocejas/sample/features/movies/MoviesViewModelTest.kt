@@ -31,27 +31,27 @@ import org.mockito.Mock
 
 class MoviesViewModelTest : AndroidTest() {
 
-    private lateinit var moviesViewModel: MoviesViewModel
+  private lateinit var moviesViewModel: MoviesViewModel
 
-    @Mock private lateinit var getMovies: GetMovies
+  @Mock private lateinit var getMovies: GetMovies
 
-    @Before
-    fun setUp() {
-        moviesViewModel = MoviesViewModel(getMovies)
+  @Before
+  fun setUp() {
+    moviesViewModel = MoviesViewModel(getMovies)
+  }
+
+  @Test fun `loading movies should update live data`() {
+    val moviesList = listOf(Movie(0, "IronMan"), Movie(1, "Batman"))
+    given { runBlocking { getMovies.run(eq(any())) } }.willReturn(Right(moviesList))
+
+    moviesViewModel.movies.observeForever {
+      it!!.size shouldEqualTo 2
+      it[0].id shouldEqualTo 0
+      it[0].poster shouldEqualTo "IronMan"
+      it[1].id shouldEqualTo 1
+      it[1].poster shouldEqualTo "Batman"
     }
 
-    @Test fun `loading movies should update live data`() {
-        val moviesList = listOf(Movie(0, "IronMan"), Movie(1, "Batman"))
-        given { runBlocking { getMovies.run(eq(any())) } }.willReturn(Right(moviesList))
-
-        moviesViewModel.movies.observeForever {
-            it!!.size shouldEqualTo 2
-            it[0].id shouldEqualTo 0
-            it[0].poster shouldEqualTo "IronMan"
-            it[1].id shouldEqualTo 1
-            it[1].poster shouldEqualTo "Batman"
-        }
-
-        runBlocking { moviesViewModel.loadMovies() }
-    }
+    runBlocking { moviesViewModel.loadMovies() }
+  }
 }

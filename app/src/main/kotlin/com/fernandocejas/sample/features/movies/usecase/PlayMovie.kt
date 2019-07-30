@@ -26,13 +26,15 @@ import com.fernandocejas.sample.features.movies.usecase.PlayMovie.Params
 import javax.inject.Inject
 
 class PlayMovie
-@Inject constructor(private val context: Context,
-                    private val navigator: Navigator) : UseCase<None, Params>() {
+@Inject constructor(
+  private val context: Context,
+  private val navigator: Navigator
+) : UseCase<None, Params>() {
 
-    override suspend fun run(params: Params): Either<Failure, None> {
-        navigator.openVideo(context, params.url)
-        return Right(None())
-    }
+  override suspend fun run(params: Params): Either<Failure, None> {
+    navigator.openVideo(context, params.url)
+    return Right(None())
+  }
 
-    data class Params(val url: String)
+  data class Params(val url: String)
 }

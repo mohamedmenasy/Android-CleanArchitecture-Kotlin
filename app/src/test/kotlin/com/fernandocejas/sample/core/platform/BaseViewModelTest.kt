@@ -24,19 +24,19 @@ import org.junit.Test
 
 class BaseViewModelTest : AndroidTest() {
 
-    @Test fun `should handle failure by updating live data`() {
-        val viewModel = MyViewModel()
+  @Test fun `should handle failure by updating live data`() {
+    val viewModel = MyViewModel()
 
-        viewModel.handleError(NetworkConnection)
+    viewModel.handleError(NetworkConnection)
 
-        val failure = viewModel.failure
-        val error = viewModel.failure.value
+    val failure = viewModel.failure
+    val error = viewModel.failure.value
 
-        failure shouldBeInstanceOf MutableLiveData::class.java
-        error shouldBeInstanceOf NetworkConnection::class.java
-    }
+    failure shouldBeInstanceOf MutableLiveData::class.java
+    error shouldBeInstanceOf NetworkConnection::class.java
+  }
 
-    private class MyViewModel : BaseViewModel() {
-        fun handleError(failure: Failure) = handleFailure(failure)
-    }
+  private class MyViewModel : BaseViewModel() {
+    fun handleError(failure: Failure) = handleFailure(failure)
+  }
 }

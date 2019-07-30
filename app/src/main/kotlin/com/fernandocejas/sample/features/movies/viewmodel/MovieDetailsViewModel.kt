@@ -23,18 +23,22 @@ import com.fernandocejas.sample.features.movies.usecase.GetMovieDetails.Params
 import com.fernandocejas.sample.features.movies.usecase.PlayMovie
 import com.fernandocejas.sample.features.movies.view.data.MovieDetailsView
 
-class MovieDetailsViewModel(private val getMovieDetails: GetMovieDetails,
-                            private val playMovie: PlayMovie) : BaseViewModel() {
+class MovieDetailsViewModel(
+  private val getMovieDetails: GetMovieDetails,
+  private val playMovie: PlayMovie
+) : BaseViewModel() {
 
-    var movieDetails: MutableLiveData<MovieDetailsView> = MutableLiveData()
+  var movieDetails: MutableLiveData<MovieDetailsView> = MutableLiveData()
 
-    fun loadMovieDetails(movieId: Int) =
-            getMovieDetails(Params(movieId)) { it.either(::handleFailure, ::handleMovieDetails) }
+  fun loadMovieDetails(movieId: Int) =
+    getMovieDetails(Params(movieId)) { it.either(::handleFailure, ::handleMovieDetails) }
 
-    fun playMovie(url: String) = playMovie(PlayMovie.Params(url))
+  fun playMovie(url: String) = playMovie(PlayMovie.Params(url))
 
-    private fun handleMovieDetails(movie: MovieDetails) {
-        this.movieDetails.value = MovieDetailsView(movie.id, movie.title, movie.poster,
-                movie.summary, movie.cast, movie.director, movie.year, movie.trailer)
-    }
+  private fun handleMovieDetails(movie: MovieDetails) {
+    this.movieDetails.value = MovieDetailsView(
+        movie.id, movie.title, movie.poster,
+        movie.summary, movie.cast, movie.director, movie.year, movie.trailer
+    )
+  }
 }

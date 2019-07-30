@@ -26,9 +26,9 @@ import com.fernandocejas.sample.core.exception.Failure
  */
 abstract class BaseViewModel : ViewModel() {
 
-    var failure: MutableLiveData<Failure> = MutableLiveData()
+  var failure: MutableLiveData<Failure> = MutableLiveData()
 
-    protected fun handleFailure(failure: Failure) {
-        this.failure.value = failure
-    }
+  protected fun handleFailure(failure: Failure) {
+    this.failure.value = failure
+  }
 }

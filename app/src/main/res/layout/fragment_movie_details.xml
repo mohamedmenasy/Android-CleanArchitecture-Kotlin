@@ -58,7 +58,8 @@
 
       <TextView
           style="@style/MovieDetailsTitle"
-          android:text="@string/movie_details_summary"/>
+          android:text="@string/movie_details_summary"
+          />
       <TextView
           android:id="@+id/movieSummary"
           style="@style/MovieDetailsText"
@@ -66,7 +67,8 @@
 
       <TextView
           style="@style/MovieDetailsTitle"
-          android:text="@string/movie_details_cast"/>
+          android:text="@string/movie_details_cast"
+          />
       <TextView
           android:id="@+id/movieCast"
           style="@style/MovieDetailsText"
@@ -74,7 +76,8 @@
 
       <TextView
           style="@style/MovieDetailsTitle"
-          android:text="@string/movie_details_director"/>
+          android:text="@string/movie_details_director"
+          />
       <TextView
           android:id="@+id/movieDirector"
           style="@style/MovieDetailsText"
@@ -82,7 +85,8 @@
 
       <TextView
           style="@style/MovieDetailsTitle"
-          android:text="@string/movie_details_year"/>
+          android:text="@string/movie_details_year"
+          />
       <TextView
           android:id="@+id/movieYear"
           style="@style/MovieDetailsText"

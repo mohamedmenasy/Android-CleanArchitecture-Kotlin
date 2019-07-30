@@ -17,6 +17,9 @@ package com.fernandocejas.sample.features.movies.data.remote.response
 
 import com.fernandocejas.sample.features.movies.data.Movie
 
-data class MovieEntity(private val id: Int, private val poster: String) {
-    fun toMovie() = Movie(id, poster)
+data class MovieEntity(
+  private val id: Int,
+  private val poster: String
+) {
+  fun toMovie() = Movie(id, poster)
 }

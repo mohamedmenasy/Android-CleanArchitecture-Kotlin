@@ -29,48 +29,59 @@ import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 
 fun View.cancelTransition() {
-    transitionName = null
+  transitionName = null
 }
 
 fun View.isVisible() = this.visibility == View.VISIBLE
 
 fun View.visible() {
-    this.visibility = View.VISIBLE
+  this.visibility = View.VISIBLE
 }
 
 fun View.invisible() {
-    this.visibility = View.GONE
+  this.visibility = View.GONE
 }
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int): View =
-        LayoutInflater.from(context).inflate(layoutRes, this, false)
+  LayoutInflater.from(context).inflate(layoutRes, this, false)
 
 fun ImageView.loadFromUrl(url: String) =
-        Glide.with(this.context.applicationContext)
-                .load(url)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(this)!!
+  Glide.with(this.context.applicationContext)
+      .load(url)
+      .transition(DrawableTransitionOptions.withCrossFade())
+      .into(this)!!
 
-fun ImageView.loadUrlAndPostponeEnterTransition(url: String, activity: androidx.fragment.app.FragmentActivity) {
-    val target: Target<Drawable> = ImageViewBaseTarget(this, activity)
-    Glide.with(context.applicationContext).load(url).into(target)
+fun ImageView.loadUrlAndPostponeEnterTransition(
+  url: String,
+  activity: androidx.fragment.app.FragmentActivity
+) {
+  val target: Target<Drawable> = ImageViewBaseTarget(this, activity)
+  Glide.with(context.applicationContext)
+      .load(url)
+      .into(target)
 }
 
-private class ImageViewBaseTarget(var imageView: ImageView?, var activity: androidx.fragment.app.FragmentActivity?) : BaseTarget<Drawable>() {
-    override fun removeCallback(cb: SizeReadyCallback) {
-        imageView = null
-        activity = null
-    }
+private class ImageViewBaseTarget(
+  var imageView: ImageView?,
+  var activity: androidx.fragment.app.FragmentActivity?
+) : BaseTarget<Drawable>() {
+  override fun removeCallback(cb: SizeReadyCallback) {
+    imageView = null
+    activity = null
+  }
 
-    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-        imageView?.setImageDrawable(resource)
-        activity?.supportStartPostponedEnterTransition()
-    }
+  override fun onResourceReady(
+    resource: Drawable,
+    transition: Transition<in Drawable>?
+  ) {
+    imageView?.setImageDrawable(resource)
+    activity?.supportStartPostponedEnterTransition()
+  }
 
-    override fun onLoadFailed(errorDrawable: Drawable?) {
-        super.onLoadFailed(errorDrawable)
-        activity?.supportStartPostponedEnterTransition()
-    }
+  override fun onLoadFailed(errorDrawable: Drawable?) {
+    super.onLoadFailed(errorDrawable)
+    activity?.supportStartPostponedEnterTransition()
+  }
 
-    override fun getSize(cb: SizeReadyCallback) = cb.onSizeReady(SIZE_ORIGINAL, SIZE_ORIGINAL)
+  override fun getSize(cb: SizeReadyCallback) = cb.onSizeReady(SIZE_ORIGINAL, SIZE_ORIGINAL)
 }

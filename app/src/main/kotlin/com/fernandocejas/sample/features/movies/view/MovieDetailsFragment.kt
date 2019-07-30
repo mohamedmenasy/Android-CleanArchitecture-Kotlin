@@ -21,96 +21,111 @@ import com.fernandocejas.sample.R
 import com.fernandocejas.sample.core.exception.Failure
 import com.fernandocejas.sample.core.exception.Failure.NetworkConnection
 import com.fernandocejas.sample.core.exception.Failure.ServerError
-import com.fernandocejas.sample.core.extension.*
+import com.fernandocejas.sample.core.extension.close
+import com.fernandocejas.sample.core.extension.failure
+import com.fernandocejas.sample.core.extension.isVisible
+import com.fernandocejas.sample.core.extension.loadFromUrl
+import com.fernandocejas.sample.core.extension.loadUrlAndPostponeEnterTransition
+import com.fernandocejas.sample.core.extension.observe
 import com.fernandocejas.sample.core.platform.BaseFragment
 import com.fernandocejas.sample.features.movies.exception.MovieFailure.NonExistentMovie
 import com.fernandocejas.sample.features.movies.view.data.MovieDetailsView
 import com.fernandocejas.sample.features.movies.view.data.MovieView
 import com.fernandocejas.sample.features.movies.viewmodel.MovieDetailsViewModel
-import kotlinx.android.synthetic.main.fragment_movie_details.*
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.fragment_movie_details.movieCast
+import kotlinx.android.synthetic.main.fragment_movie_details.movieDetails
+import kotlinx.android.synthetic.main.fragment_movie_details.movieDirector
+import kotlinx.android.synthetic.main.fragment_movie_details.moviePlay
+import kotlinx.android.synthetic.main.fragment_movie_details.moviePoster
+import kotlinx.android.synthetic.main.fragment_movie_details.movieSummary
+import kotlinx.android.synthetic.main.fragment_movie_details.movieYear
+import kotlinx.android.synthetic.main.fragment_movie_details.scrollView
+import kotlinx.android.synthetic.main.toolbar.toolbar
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsFragment : BaseFragment() {
 
-    companion object {
-        private const val PARAM_MOVIE = "param_movie"
+  companion object {
+    private const val PARAM_MOVIE = "param_movie"
 
-        fun forMovie(movie: MovieView): MovieDetailsFragment {
-            val movieDetailsFragment = MovieDetailsFragment()
-            val arguments = Bundle()
-            arguments.putParcelable(PARAM_MOVIE, movie)
-            movieDetailsFragment.arguments = arguments
+    fun forMovie(movie: MovieView): MovieDetailsFragment {
+      val movieDetailsFragment = MovieDetailsFragment()
+      val arguments = Bundle()
+      arguments.putParcelable(PARAM_MOVIE, movie)
+      movieDetailsFragment.arguments = arguments
 
-            return movieDetailsFragment
+      return movieDetailsFragment
+    }
+  }
+
+  private val movieDetailsAnimator: MovieDetailsAnimator by inject()
+
+  private val movieDetailsViewModel: MovieDetailsViewModel by viewModel()
+
+  override fun layoutId() = R.layout.fragment_movie_details
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    activity?.let { movieDetailsAnimator.postponeEnterTransition(it) }
+
+    with(movieDetailsViewModel) {
+      observe(movieDetails, ::renderMovieDetails)
+      failure(failure, ::handleFailure)
+    }
+  }
+
+  override fun onViewCreated(
+    view: View,
+    savedInstanceState: Bundle?
+  ) {
+    super.onViewCreated(view, savedInstanceState)
+    if (firstTimeCreated(savedInstanceState)) {
+      movieDetailsViewModel.loadMovieDetails((arguments?.get(PARAM_MOVIE) as MovieView).id)
+    } else {
+      movieDetailsAnimator.scaleUpView(moviePlay)
+      movieDetailsAnimator.cancelTransition(moviePoster)
+      moviePoster.loadFromUrl((arguments!![PARAM_MOVIE] as MovieView).poster)
+    }
+  }
+
+  override fun onBackPressed() {
+    movieDetailsAnimator.fadeInvisible(scrollView, movieDetails)
+    if (moviePlay.isVisible())
+      movieDetailsAnimator.scaleDownView(moviePlay)
+    else
+      movieDetailsAnimator.cancelTransition(moviePoster)
+  }
+
+  private fun renderMovieDetails(movie: MovieDetailsView?) {
+    movie?.let {
+      with(movie) {
+        activity?.let {
+          moviePoster.loadUrlAndPostponeEnterTransition(poster, it)
+          it.toolbar.title = title
         }
+        movieSummary.text = summary
+        movieCast.text = cast
+        movieDirector.text = director
+        movieYear.text = year.toString()
+        moviePlay.setOnClickListener { movieDetailsViewModel.playMovie(trailer) }
+      }
     }
+    movieDetailsAnimator.fadeVisible(scrollView, movieDetails)
+    movieDetailsAnimator.scaleUpView(moviePlay)
+  }
 
-    private val movieDetailsAnimator: MovieDetailsAnimator by inject()
-
-    private val movieDetailsViewModel: MovieDetailsViewModel by viewModel()
-
-    override fun layoutId() = R.layout.fragment_movie_details
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        activity?.let { movieDetailsAnimator.postponeEnterTransition(it) }
-
-        with(movieDetailsViewModel) {
-            observe(movieDetails, ::renderMovieDetails)
-            failure(failure, ::handleFailure)
-        }
+  private fun handleFailure(failure: Failure?) {
+    when (failure) {
+      is NetworkConnection -> {
+        notify(R.string.failure_network_connection); close()
+      }
+      is ServerError -> {
+        notify(R.string.failure_server_error); close()
+      }
+      is NonExistentMovie -> {
+        notify(R.string.failure_movie_non_existent); close()
+      }
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        if (firstTimeCreated(savedInstanceState)) {
-            movieDetailsViewModel.loadMovieDetails((arguments?.get(PARAM_MOVIE) as MovieView).id)
-        } else {
-            movieDetailsAnimator.scaleUpView(moviePlay)
-            movieDetailsAnimator.cancelTransition(moviePoster)
-            moviePoster.loadFromUrl((arguments!![PARAM_MOVIE] as MovieView).poster)
-        }
-    }
-
-    override fun onBackPressed() {
-        movieDetailsAnimator.fadeInvisible(scrollView, movieDetails)
-        if (moviePlay.isVisible())
-            movieDetailsAnimator.scaleDownView(moviePlay)
-        else
-            movieDetailsAnimator.cancelTransition(moviePoster)
-    }
-
-    private fun renderMovieDetails(movie: MovieDetailsView?) {
-        movie?.let {
-            with(movie) {
-                activity?.let {
-                    moviePoster.loadUrlAndPostponeEnterTransition(poster, it)
-                    it.toolbar.title = title
-                }
-                movieSummary.text = summary
-                movieCast.text = cast
-                movieDirector.text = director
-                movieYear.text = year.toString()
-                moviePlay.setOnClickListener { movieDetailsViewModel.playMovie(trailer) }
-            }
-        }
-        movieDetailsAnimator.fadeVisible(scrollView, movieDetails)
-        movieDetailsAnimator.scaleUpView(moviePlay)
-    }
-
-    private fun handleFailure(failure: Failure?) {
-        when (failure) {
-            is NetworkConnection -> {
-                notify(R.string.failure_network_connection); close()
-            }
-            is ServerError -> {
-                notify(R.string.failure_server_error); close()
-            }
-            is NonExistentMovie -> {
-                notify(R.string.failure_movie_non_existent); close()
-            }
-        }
-    }
+  }
 }

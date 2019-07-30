@@ -21,7 +21,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withId
 
 class Events {
-    fun clickOnView(@IdRes viewId: Int) {
-        onView(withId(viewId)).perform(click())
-    }
+  fun clickOnView(@IdRes viewId: Int) {
+    onView(withId(viewId)).perform(click())
+  }
 }

@@ -27,26 +27,25 @@ import org.koin.core.context.startKoin
 
 class AndroidApplication : Application() {
 
+  override fun onCreate() {
+    super.onCreate()
+    this.injectMembers()
+    this.initializeLeakDetection()
+  }
 
-    override fun onCreate() {
-        super.onCreate()
-        this.injectMembers()
-        this.initializeLeakDetection()
+  private fun injectMembers() {
+    startKoin {
+      androidLogger()
+
+      // use the Android context given there
+      androidContext(this@AndroidApplication)
+
+      // module list
+      modules(listOf(applicationModule, loginModule, moviesModule))
     }
+  }
 
-    private fun injectMembers() {
-        startKoin {
-            androidLogger()
-
-            // use the Android context given there
-            androidContext(this@AndroidApplication)
-
-            // module list
-            modules(listOf(applicationModule, loginModule, moviesModule))
-        }
-    }
-
-    private fun initializeLeakDetection() {
-        if (BuildConfig.DEBUG) LeakCanary.install(this)
-    }
+  private fun initializeLeakDetection() {
+    if (BuildConfig.DEBUG) LeakCanary.install(this)
+  }
 }

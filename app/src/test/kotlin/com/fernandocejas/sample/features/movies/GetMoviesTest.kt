@@ -31,19 +31,19 @@ import org.mockito.Mock
 
 class GetMoviesTest : UnitTest() {
 
-    private lateinit var getMovies: GetMovies
+  private lateinit var getMovies: GetMovies
 
-    @Mock private lateinit var moviesRepository: MoviesRepository
+  @Mock private lateinit var moviesRepository: MoviesRepository
 
-    @Before fun setUp() {
-        getMovies = GetMovies(moviesRepository)
-        given { moviesRepository.movies() }.willReturn(Right(listOf(Movie.empty())))
-    }
+  @Before fun setUp() {
+    getMovies = GetMovies(moviesRepository)
+    given { moviesRepository.movies() }.willReturn(Right(listOf(Movie.empty())))
+  }
 
-    @Test fun `should get data from repository`() {
-        runBlocking { getMovies.run(UseCase.None()) }
+  @Test fun `should get data from repository`() {
+    runBlocking { getMovies.run(UseCase.None()) }
 
-        verify(moviesRepository).movies()
-        verifyNoMoreInteractions(moviesRepository)
-    }
+    verify(moviesRepository).movies()
+    verifyNoMoreInteractions(moviesRepository)
+  }
 }
