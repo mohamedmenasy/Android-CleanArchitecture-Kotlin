@@ -19,10 +19,8 @@ import com.fernandocejas.sample.core.interactor.UseCase
 import com.fernandocejas.sample.core.interactor.UseCase.None
 import com.fernandocejas.sample.features.movies.data.Movie
 import com.fernandocejas.sample.features.movies.data.remote.MoviesRepository
-import javax.inject.Inject
 
-class GetMovies
-@Inject constructor(private val moviesRepository: MoviesRepository) : UseCase<List<Movie>, None>() {
+class GetMovies(private val moviesRepository: MoviesRepository) : UseCase<List<Movie>, None>() {
 
   override suspend fun run(params: None) = moviesRepository.movies()
 }

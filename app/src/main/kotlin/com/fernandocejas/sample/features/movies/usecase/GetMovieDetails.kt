@@ -19,10 +19,8 @@ import com.fernandocejas.sample.core.interactor.UseCase
 import com.fernandocejas.sample.features.movies.data.MovieDetails
 import com.fernandocejas.sample.features.movies.data.remote.MoviesRepository
 import com.fernandocejas.sample.features.movies.usecase.GetMovieDetails.Params
-import javax.inject.Inject
 
-class GetMovieDetails
-@Inject constructor(private val moviesRepository: MoviesRepository) :
+class GetMovieDetails(private val moviesRepository: MoviesRepository) :
     UseCase<MovieDetails, Params>() {
 
   override suspend fun run(params: Params) = moviesRepository.movieDetails(params.id)

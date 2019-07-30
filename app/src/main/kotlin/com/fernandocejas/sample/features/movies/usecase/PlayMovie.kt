@@ -23,10 +23,8 @@ import com.fernandocejas.sample.core.interactor.UseCase
 import com.fernandocejas.sample.core.interactor.UseCase.None
 import com.fernandocejas.sample.core.navigation.Navigator
 import com.fernandocejas.sample.features.movies.usecase.PlayMovie.Params
-import javax.inject.Inject
 
-class PlayMovie
-@Inject constructor(
+class PlayMovie(
   private val context: Context,
   private val navigator: Navigator
 ) : UseCase<None, Params>() {
