@@ -23,7 +23,7 @@ import com.fernandocejas.sample.features.movies.viewmodel.MoviesViewModel
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.runBlocking
 import org.amshove.kluent.shouldEqualTo
 import org.junit.Before
 import org.junit.Test
