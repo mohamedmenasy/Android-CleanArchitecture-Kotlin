@@ -48,14 +48,24 @@ Article, lessons learned and some more material coming up. Check the following k
 ### ----------------------------------------------------------------------------------------------
 
 ## Local Development
+
+- Migrate to Androidx.
+- Use [KOIN](https://insert-koin.io/) instead of Dagger.
+- Using stable corotuines version 1.0.1
+- Using [Kotlin Parcelize](https://kotlinlang.org/docs/tutorials/android-plugin.html).
+
+
+
+## Local Development
+
 Here are some useful Gradle/adb commands for executing this example:
 
  * `./gradlew deployDebug` - Builds and install the debug apk on the current connected device.
  * `./gradlew runUnitTests` - Execute all unit tests (both unit and integration).
- 
+
 ## Discussions
 Refer to the issues section: https://github.com/android10/Android-CleanArchitecture-Kotlin/issues
- 
+
 ## Code style
 Here you can download and install the java codestyle.
 https://github.com/android10/java-code-styles
@@ -63,13 +73,13 @@ https://github.com/android10/java-code-styles
 ## License
 
     Copyright 2018 Fernando Cejas
-
+    
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-
+    
        http://www.apache.org/licenses/LICENSE-2.0
-
+    
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
